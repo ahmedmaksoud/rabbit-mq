@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ahmed.test.rabbitmqtest.config.RabbitMqTopicProducer;
+import ahmed.test.rabbitmqtest.services.RabbitMqTopicProducer;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -20,4 +20,18 @@ public class MessageController {
         rabbitMqTopicProducer.sendMessageToTopic("notifications-topic", "order.created.#", message);
         return "Message sent to RabbitMQ topic";
     }
+
+    @PostMapping("/sendMessageTransaction")
+    public String sendMessageTransaction(@RequestBody String message) {
+        rabbitMqTopicProducer.sendMessageTransaction(message);
+        return "Message sent to RabbitMQ topic";
+    }
+    @PostMapping("/sendMessageTransactionInThreads")
+    public String sendMessageTransactionInThreads(@RequestBody String message) {
+        rabbitMqTopicProducer.sendMessageTransactionInThreads(message);
+        return "Message sent to RabbitMQ topic";
+    }
+
+
+
 }
